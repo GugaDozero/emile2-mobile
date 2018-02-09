@@ -3,7 +3,10 @@ import QtQuick.Controls 2.2
 import QtQuick.Layouts 1.3
 
 Label {
-    property alias animate: scaleAnimation.running
+    id: label
+
+    property bool animate: true
+    property bool rotate: false
     property bool header: false
     property bool icon: false
 
@@ -11,13 +14,14 @@ Label {
     anchors.horizontalCenter: parent.horizontalCenter
     horizontalAlignment: Text.AlignHCenter
     font { family: titilliumFont.name; pixelSize: header ? 28:(icon ? 80:14) }
-    color: header ? "#4b6c8f":(icon ? "#6bbfaf":"#9aa0a4")
+    color: header ? theming.primaryColor:(icon ? theming.iconColor:theming.textColor)
     wrapMode: Text.WordWrap
-    SequentialAnimation on scale {
-        id: scaleAnimation
-        running: icon
+    SequentialAnimation {
+        running: icon && animate
         loops: Animation.Infinite
-        PropertyAnimation { to: 1.25; duration: 1000 }
-        PropertyAnimation { to: 1.00; duration: 1000 }
+        NumberAnimation { target: label; property: "rotation"; to: 360; duration: rotate ? 1000:0 }
+        NumberAnimation { target: label; property: "rotation"; to: 0; duration: 0 }
+        NumberAnimation { target: label; property: "scale"; easing.type: Easing.OutElastic; to: 1.5; duration: 1000 }
+        NumberAnimation { target: label; property: "scale"; easing.type: Easing.OutElastic; to: 1.0; duration: 1000 }
     }
 }
