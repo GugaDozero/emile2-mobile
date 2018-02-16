@@ -44,7 +44,6 @@ ApplicationWindow {
         anchors.centerIn: parent
         spacing: 20
         EC.Label {
-            id: mylabel
             icon: true
             rotate: true
             text: "\uf013"

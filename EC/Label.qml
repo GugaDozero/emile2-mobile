@@ -13,7 +13,7 @@ Label {
     Layout.preferredWidth: 0.7 * parent.width
     anchors.horizontalCenter: parent.horizontalCenter
     horizontalAlignment: Text.AlignHCenter
-    font { family: titilliumFont.name; pixelSize: header ? 28:(icon ? 80:14) }
+    font { family: icon ? awesomeFont.name:titilliumFont.name; pixelSize: header ? 28:(icon ? 80:14) }
     color: header ? theming.primaryColor:(icon ? theming.iconColor:theming.textColor)
     wrapMode: Text.WordWrap
     SequentialAnimation {
