@@ -1,8 +1,7 @@
-import QtQuick 2.7
-import QtQuick.Controls 2.1
-import QtQuick.Layouts 1.3
-import QtQuick.Controls.Material 2.1
-import Qt.labs.platform 1.0
+import QtQuick 2.12
+import QtQuick.Controls 2.12
+import QtQuick.Layouts 1.12
+import QtQuick.Controls.Material 2.12
 
 import "FontAwesome.js" as FA
 import "EC" as EC
@@ -12,7 +11,7 @@ ApplicationWindow {
     visible: true
     width: 360
     height: 640
-    title: qsTr("emile2-mobile")
+    title: qsTr("Emile2")
 
     Material.primary: "#05070d"
     Material.foreground: "#05070d"
@@ -52,37 +51,32 @@ ApplicationWindow {
         id: drawer
         width: parent.width*2/3
         height: parent.height
-        Column {
+        ColumnLayout {
             anchors.fill: parent
+            spacing: 0
             Rectangle {
-                width: drawer.width
-                height: appWindow.height / 3
+                Layout.fillWidth: true
+                Layout.preferredHeight: appWindow.height / 3
                 color: Material.primaryColor
 
                 Label {
                     width: drawer.width / 3 * 2
                     height: contentHeight
                     anchors { left: parent.left; leftMargin: 13; bottom: parent.bottom; bottomMargin: 5 }
-                    text: "emile2-mobile"
+                    text: "Emile2"
                     fontSizeMode: Text.HorizontalFit
                     font.pixelSize: width
-                    font.family: "Roboto"
                     color: "white"
                 }
             }
             ListView {
-                width: parent.width
-                height: 2 * (appWindow.height / 3)
+                Layout.fillWidth: true
+                Layout.fillHeight: true
                 model: contents
                 clip: true
-                delegate: ItemDelegate {
-                    width: parent.width
-                    text: "         " + modelData.menuName
-
-                    EC.ToolButton {
-                        text: FA.icons[modelData.icon]
-                        enabled: false
-                    }
+                delegate: EC.IconDelegate {
+                    displayText: modelData.menuItem
+                    iconName: FA.icons[modelData.iconName]
                     onClicked: {
                         tabBar.currentIndex = index
                         drawer.close()
@@ -114,7 +108,7 @@ ApplicationWindow {
         currentIndex: swipeView.currentIndex
         Repeater {
             model: contents
-            TabButton { text: modelData.menuName }
+            TabButton { text: modelData.menuItem }
         }
     }
 }

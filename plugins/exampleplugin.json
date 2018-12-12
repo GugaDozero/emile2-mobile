@@ -1,0 +1,5 @@
+{
+    "menuItem": "Example Plugin",
+    "iconName": "group",
+    "mainPage": "exampleplugin.qml"
+}

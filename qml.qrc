@@ -2,11 +2,11 @@
     <qresource prefix="/">
         <file>main.qml</file>
         <file>JSONListModel.qml</file>
-        <file>EC/ToolButton.qml</file>
         <file>FontAwesome.otf</file>
         <file>FontAwesome.js</file>
-        <file>MyStackView.qml</file>
         <file>qtquickcontrols2.conf</file>
+        <file>EC/ToolButton.qml</file>
+        <file>EC/IconDelegate.qml</file>
         <file>icons/menu.png</file>
         <file>icons/more_vert.png</file>
     </qresource>
