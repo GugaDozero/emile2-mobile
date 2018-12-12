@@ -1,57 +1,119 @@
-import QtQuick 2.10
-import QtQuick.Controls 2.3
+import QtQuick 2.7
+import QtQuick.Controls 2.1
 import QtQuick.Layouts 1.3
-import "EC" as EC
-import QtQml.StateMachine 1.0 as DSM
+import QtQuick.Controls.Material 2.1
+import Qt.labs.platform 1.0
+
+import "FontAwesome.js" as FA
 
 ApplicationWindow {
-    id: window
+    id: appWindow
     visible: true
     width: 360
     height: 640
-    title: qsTr("Émile 2.0")
+    title: qsTr("emile2-mobile")
+
+    Material.primary: "#05070d"
+    Material.foreground: "#05070d"
+    Material.accent: "#41cd52"
+
+    FontLoader { id: fontAwesome; source: "qrc:///FontAwesome.otf" }
 
     QtObject {
-        id: theming
-
-        property color primaryColor: "#4b6c8f"
-        property color textColor: "#9aa0a4"
-        property color iconColor: "#6bbfaf"
-        property color backgroundColor: "white"
+        id: internal
+        property string baseServer: "http://localhost:4567"
     }
 
-    DSM.StateMachine {
-        id: stateMachine
-        initialState: state
-        running: true
-        DSM.State {
-            id: state
-            DSM.SignalTransition {
-                targetState: finalState
-                signal: button.clicked
+    header: ToolBar {
+        width: parent.width
+        RowLayout {
+            anchors.fill: parent
+            AwesomeToolButton {
+                text: FA.icons["bars"]
+                onClicked: drawer.open()
+            }
+            Label {
+                text: "emile2-mobile"
+                font.bold: true
+                color: "white"
+                elide: Label.ElideRight
+                horizontalAlignment: Qt.AlignHCenter
+                verticalAlignment: Qt.AlignVCenter
+                Layout.fillWidth: true
+            }
+            AwesomeToolButton {
+                text: FA.icons["info"]
             }
         }
-        DSM.FinalState {
-            id: finalState
+    }
+
+    Drawer {
+        id: drawer
+        width: parent.width*2/3
+        height: parent.height
+        Column {
+            anchors.fill: parent
+            Rectangle {
+                width: drawer.width
+                height: appWindow.height / 3
+                color: Material.primaryColor
+
+                Label {
+                    width: drawer.width / 3 * 2
+                    height: contentHeight
+                    anchors { left: parent.left; leftMargin: 13; bottom: parent.bottom; bottomMargin: 5 }
+                    text: "emile2-mobile"
+                    fontSizeMode: Text.HorizontalFit
+                    font.pixelSize: width
+                    font.family: "Roboto"
+                    color: "white"
+                }
+            }
+            ListView {
+                width: parent.width
+                height: 2 * (appWindow.height / 3)
+                model: contents
+                clip: true
+                delegate: ItemDelegate {
+                    width: parent.width
+                    text: "         " + modelData.menuName
+
+                    AwesomeToolButton {
+                        text: FA.icons[modelData.icon]
+                        enabled: false
+                    }
+                    onClicked: {
+                        tabBar.currentIndex = index
+                        drawer.close()
+                    }
+                }
+            }
         }
     }
 
-    FontLoader { id: titilliumFont; source: "qrc:/TitilliumWeb-Regular.ttf" }
-    FontLoader { id: awesomeFont; source: "qrc:/fa-solid-900.ttf" }
+    SwipeView {
+        id: swipeView
+        anchors.fill: parent
+        currentIndex: tabBar.currentIndex
+        
+        Repeater {
+            model: contents
+            Loader {
+                source: (Qt.platform.os === "android") ?
+                        "assets:/plugins/" + modelData.pluginName + "/" + modelData.mainPage
+                        :
+                        "file://" + modelData.pluginName + "/" + modelData.mainPage
+            }
+        }
+    }
 
-    ColumnLayout {
+    footer: TabBar {
+        id: tabBar
         width: parent.width
-        anchors.centerIn: parent
-        spacing: 20
-        EC.Label {
-            icon: true
-            rotate: true
-            text: "\uf013"
+        currentIndex: swipeView.currentIndex
+        Repeater {
+            model: contents
+            TabButton { text: modelData.menuName }
         }
-        EC.Label { text: "Bem-vindo ao Émile!"; header: true }
-        EC.Label {
-            text: "Esta é a primeira vez que você está utilizando o Émile. Este wizard irá guiá-lo na realização das primeiras configurações do aplicativo."
-        }
-        EC.Button { id: button; text: "PRÓXIMO" }
     }
 }

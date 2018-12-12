@@ -1,10 +1,13 @@
 <RCC>
     <qresource prefix="/">
         <file>main.qml</file>
+        <file>JSONListModel.qml</file>
+        <file>AwesomeToolButton.qml</file>
+        <file>FontAwesome.otf</file>
+        <file>FontAwesome.js</file>
+        <file>MyStackView.qml</file>
         <file>qtquickcontrols2.conf</file>
-        <file>TitilliumWeb-Regular.ttf</file>
-        <file>fa-solid-900.ttf</file>
-        <file>EC/Button.qml</file>
-        <file>EC/Label.qml</file>
+        <file>icons/menu.png</file>
+        <file>icons/more_vert.png</file>
     </qresource>
 </RCC>
