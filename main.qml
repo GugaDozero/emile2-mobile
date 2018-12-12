@@ -5,6 +5,7 @@ import QtQuick.Controls.Material 2.1
 import Qt.labs.platform 1.0
 
 import "FontAwesome.js" as FA
+import "EC" as EC
 
 ApplicationWindow {
     id: appWindow
@@ -28,7 +29,7 @@ ApplicationWindow {
         width: parent.width
         RowLayout {
             anchors.fill: parent
-            AwesomeToolButton {
+            EC.ToolButton {
                 text: FA.icons["bars"]
                 onClicked: drawer.open()
             }
@@ -41,7 +42,7 @@ ApplicationWindow {
                 verticalAlignment: Qt.AlignVCenter
                 Layout.fillWidth: true
             }
-            AwesomeToolButton {
+            EC.ToolButton {
                 text: FA.icons["info"]
             }
         }
@@ -78,7 +79,7 @@ ApplicationWindow {
                     width: parent.width
                     text: "         " + modelData.menuName
 
-                    AwesomeToolButton {
+                    EC.ToolButton {
                         text: FA.icons[modelData.icon]
                         enabled: false
                     }
