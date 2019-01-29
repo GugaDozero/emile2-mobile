@@ -1,0 +1,5 @@
+{
+    "menuItem": "Notícias de ADS",
+    "iconName": "rss-square",
+    "mainPage": "adsnews.qml"
+}
