@@ -3,7 +3,6 @@ import QtQuick.Controls 2.12
 import QtQuick.XmlListModel 2.12
 
 Item {
-    
     XmlListModel {
         id: xmlListModel
         source: "https://ads.ifba.edu.br/tiki-blogs_rss.php?ver=2"
