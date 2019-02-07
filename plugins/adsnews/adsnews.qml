@@ -3,7 +3,7 @@ import QtQuick.Controls 2.12
 import QtQuick.XmlListModel 2.12
 
 Item {
-    property int xmlIndex: 0;
+    property int xmlIndex: 0
 
     XmlListModel {
         id: xmlListModel
@@ -20,22 +20,22 @@ Item {
     }
 
     Component {
-        id: xmlContent;
+        id: xmlContent
 
         Text {
             id: xmlContentText
-            text: xmlListModel.get(xmlIndex).description;
+            text: xmlListModel.get(xmlIndex).description
+            clip: true
+            wrapMode: Text.Wrap
             MouseArea {
-                anchors.fill: parent;
-                onClicked: {
-                    stackView.pop();
-                }
+                anchors.fill: parent
+                onClicked: stackView.pop()
             }
         }
     }
 
     function pushAndSetIndex(stack, content, index) {
-        xmlIndex = index;
+        xmlIndex = index
         stack.push(content)
     }
 
@@ -48,7 +48,7 @@ Item {
                 width: parent.width
                 text: title
                 onClicked: {
-                    pushAndSetIndex(stackView, xmlContent, index);
+                    pushAndSetIndex(stackView, xmlContent, index)
                 }
             }
         }
