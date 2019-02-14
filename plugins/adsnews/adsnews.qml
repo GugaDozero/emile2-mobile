@@ -4,7 +4,7 @@ import QtQuick.XmlListModel 2.12
 
 Item {
     property int xmlIndex: 0
-
+    
     XmlListModel {
         id: xmlListModel
         source: "https://ads.ifba.edu.br/tiki-blogs_rss.php?ver=2"

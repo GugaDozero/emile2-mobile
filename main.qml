@@ -90,7 +90,7 @@ ApplicationWindow {
         id: swipeView
         anchors.fill: parent
         currentIndex: tabBar.currentIndex
-        
+
         Repeater {
             model: contents
             Loader {
