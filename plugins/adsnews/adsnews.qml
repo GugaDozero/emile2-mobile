@@ -1,8 +1,18 @@
 import QtQuick 2.12
+import QtQuick.Layouts 1.12
 import QtQuick.Controls 2.12
 import QtQuick.XmlListModel 2.12
  
-Item {
+Page {
+    header: ToolButton {
+            id: toolButton
+            text: "\u25C0"
+            visible: stackView.depth > 1
+            font.pixelSize: Qt.application.font.pixelSize * 1.6
+            onClicked: stackView.pop()
+        }
+    
+    
     XmlListModel {
         id: xmlListModel
         source: "https://ads.ifba.edu.br/tiki-blogs_rss.php?ver=2"
@@ -37,11 +47,6 @@ Item {
                 textFormat: TextEdit.RichText
                 
                 width: stackView.width
-                
-                MouseArea {
-                    anchors.fill: parent
-                    onClicked: stackView.pop()
-                }
             }
         }
     }
