@@ -26,6 +26,7 @@ Item {
         xhr.onerror = function() {
             rootItem.errorString = qsTr("Cannot connect to server!");
             rootItem.state = "error";
+            console.log("Cannot connect to server!");
         }
         xhr.onreadystatechange = function() {
             if (xhr.readyState === XMLHttpRequest.DONE) {
@@ -33,9 +34,12 @@ Item {
                 if (rootItem.httpStatus >= 200 && rootItem.httpStatus <= 299) {
                     json = JSON.parse(xhr.responseText);
                     rootItem.state = "ready";
+                    console.log("rootItem.state: ready");
+                    console.log("json inside JSONListModel: " + JSON.stringify(json));
                 }
                 else {
                     rootItem.errorString = qsTr("The server returned error ") + xhr.status;
+                    console.log("The server returned error " + xhr.status);
                     rootItem.state = "error";
                 }
             }
