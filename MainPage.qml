@@ -7,7 +7,7 @@ import "FontAwesome.js" as FA
 import "EC" as EC
 
 Page {
-    id: appWindow
+    id: pageWindow
     visible: true
     width: 360
     height: 640
@@ -57,7 +57,7 @@ Page {
             spacing: 0
             Rectangle {
                 Layout.fillWidth: true
-                Layout.preferredHeight: appWindow.height / 3
+                Layout.preferredHeight: pageWindow.height / 3
                 color: Material.primaryColor
 
                 Label {

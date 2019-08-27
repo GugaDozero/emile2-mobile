@@ -6,7 +6,6 @@ var timer
 function reset() {
     timer.stop()
     timer.destroy()
-    busyIndicator.running = false
     errorText.text = ""
 }
 
@@ -14,8 +13,7 @@ function timeout() {
     httpRequest.abort()
     timer.stop()
     timer.destroy()
-    busyIndicator.running = false
-    errorText.text = "erro de timeout\nsem conexão ou servidor SEI indisponível"
+    errorText.text = "erro de timeout\nsem conexão ou servidor emile indisponível"
 }
 
 function get(url) {
@@ -23,7 +21,6 @@ function get(url) {
     httpRequest.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
     timer = Qt.createQmlObject("import QtQuick 2.12; Timer { interval: 20000; repeat: false; running: true }", Qt.application, "timeoutTimer");
     timer.triggered.connect(timeout)
-    busyIndicator.running = true
     httpRequest.send()
 }
 
@@ -32,6 +29,5 @@ function post(url, params) {
     httpRequest.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
     timer = Qt.createQmlObject("import QtQuick 2.12; Timer { interval: 20000; repeat: false; running: true }", Qt.application, "timeoutTimer");
     timer.triggered.connect(timeout)
-    busyIndicator.running = true
     httpRequest.send(params)
 }

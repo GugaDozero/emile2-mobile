@@ -1,5 +1,6 @@
 <RCC>
     <qresource prefix="/">
+        <file>networkaccessmanager.js</file>
         <file>MainPage.qml</file>
         <file>main.qml</file>
         <file>plugins/classalarm/JSONListModel.qml</file>

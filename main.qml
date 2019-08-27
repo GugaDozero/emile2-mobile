@@ -1,12 +1,17 @@
 import QtQuick 2.11
-import QtQuick.Controls 2.4
+import QtQuick.Controls 2.5
 import QtQuick.Layouts 1.3
 import Qt.labs.settings 1.0
 
 import "networkaccessmanager.js" as NAM
 
-Page {
-
+ApplicationWindow {
+    id: appWindow 
+    visible: true
+    width: 360
+    height: 460
+    title: qsTr("Emile2")
+    
     ColumnLayout {
         id: columnLayout
         anchors.centerIn: parent
@@ -42,15 +47,21 @@ Page {
             login()
         }
     }
+    
+    StackView {
+        id: stackView
+        anchors.fill: parent
+        visible: true
+    }
 
     function login() {
-        NAM.busyIndicator = busyIndicator
         NAM.errorText = errorText
         NAM.httpRequest.onreadystatechange=function() {
             if (NAM.httpRequest.readyState === XMLHttpRequest.DONE && NAM.httpRequest.status != 0) {
                 NAM.reset()
-                var re = /errada/
-                if (!re.test(NAM.httpRequest.responseText)) {
+                var re = "Wrong user/password"
+                console.log("resposta foi" + NAM.httpRequest.responseText);
+                if (re !== NAM.httpRequest.responseText) {
                      var processedResponseText = NAM.httpRequest.responseText; // tratar o json para pegar o tipo e nome do usuario
                     stackView.push("qrc:/MainPage.qml",
                                    {// passar as propriedades dos usuarios
@@ -64,7 +75,7 @@ Page {
                 }
             }
         }
-        NAM.post('http://emilegestaoacademica.herokuapp.com/teste/' + txtUser.text + '/' + txtPassword.text)
+        NAM.get('http://localhost:4567/teste/' + txtUser.text + '/' + txtPassword.text)
     }
 
 }
