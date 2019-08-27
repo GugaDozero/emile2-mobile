@@ -59,7 +59,7 @@ ApplicationWindow {
         NAM.httpRequest.onreadystatechange=function() {
             if (NAM.httpRequest.readyState === XMLHttpRequest.DONE && NAM.httpRequest.status != 0) {
                 NAM.reset()
-                var re = "Wrong user/password"
+                var re = "Wrong userpassword"
                 console.log("resposta foi" + NAM.httpRequest.responseText);
                 if (re !== NAM.httpRequest.responseText) {
                      var processedResponseText = NAM.httpRequest.responseText; // tratar o json para pegar o tipo e nome do usuario
@@ -75,7 +75,7 @@ ApplicationWindow {
                 }
             }
         }
-        NAM.get('http://localhost:4567/teste/' + txtUser.text + '/' + txtPassword.text)
+        NAM.get('https://emilegestaoacademica.herokuapp.com/teste/' + txtUser.text + '/' + txtPassword.text)
     }
 
 }
